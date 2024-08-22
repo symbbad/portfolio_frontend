@@ -1,11 +1,44 @@
-import React from 'react';
+"use client";
 
-const Header: React.FC = () => {
+import { useEffect, useState } from "react";
+import styles from "./TextAnimation.module.css";
+
+const words = ["Backend", "Network", "Devops", "Infra"];
+
+const TextAnimation: React.FC = () => {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0); // 현재 단어의 인덱스
+  const [isAnimating, setIsAnimating] = useState(false); // 애니메이션 상태 관리
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true); // 애니메이션 시작
+      setTimeout(() => {
+        setCurrentWordIndex((prev) => (prev + 1) % words.length); // 다음 단어로 변경
+        setIsAnimating(false); // 애니메이션 종료
+      }, 1000); // 슬라이드 아웃 지속 시간
+    }, 3000); // 단어 전환 주기
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div style={{ position: 'absolute', top: 0, width: '100%', textAlign: 'center', color: '#fff', transition: 'opacity 0.5s' }}>
-      <h1>Website Name</h1>
+    <div className={styles.container}>
+      {words.map((word, index) => (
+        <span
+          key={index}
+          className={`${styles.word} ${
+            index === currentWordIndex
+              ? isAnimating
+                ? styles.exit
+                : styles.active
+              : ""
+          }`}
+        >
+          {word}
+        </span>
+      ))}
     </div>
   );
 };
 
-export default Header;
+export default TextAnimation;

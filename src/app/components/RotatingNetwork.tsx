@@ -15,31 +15,45 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
 
     // Three.js 초기화
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000); // far 값을 증가
     const renderer = new THREE.WebGLRenderer({ 
       alpha: true,
-      antialias: true // 안티앨리어싱 추가
+      antialias: true,
+      logarithmicDepthBuffer: true // 깊이 버퍼 정밀도 향상
     });
 
-    // 성능 최적화
+    // 성능 최적화 및 반응형 크기 조정
     const initRenderer = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       mount.appendChild(renderer.domElement);
     };
 
     initRenderer();
 
+    // 화면 크기에 따른 구체 크기 계산
+    const calculateSphereSize = () => {
+      const minDimension = Math.min(window.innerWidth, window.innerHeight);
+      return minDimension * 0.25; // 화면의 25% 크기로 설정
+    };
+
     // 지구 메쉬 생성
     const createEarth = () => {
-      const geometry = new THREE.SphereGeometry(100, 64, 64);
+      const radius = calculateSphereSize();
+      const geometry = new THREE.SphereGeometry(radius, 64, 64);
       const material = new THREE.MeshBasicMaterial({
         color: 0x222222,
         transparent: true,
-        opacity: 0
+        opacity: 0,
+        depthWrite: false, // 깊이 버퍼 쓰기 비활성화
+        depthTest: false // 깊이 테스트 비활성화
       });
       const earth = new THREE.Mesh(geometry, material);
-      scene.add(earth);
+      earth.rotation.z = THREE.MathUtils.degToRad(23.5); 
+      scene.add(earth); // 씬에 추가
+
       return earth;
     };
 
@@ -50,11 +64,11 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
       const nodeCount = 400;
       const nodePositions: number[] = [];
       const nodeSizes: number[] = [];
+      const radius = calculateSphereSize();
       
       for (let i = 0; i < nodeCount; i++) {
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(2 * Math.random() - 1);
-        const radius = 100;
         
         nodePositions.push(
           radius * Math.sin(phi) * Math.cos(theta),
@@ -72,6 +86,8 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
     // 노드 연결 계산 최적화
     const calculateConnections = () => {
       const connectionCounts = new Array(nodeCount).fill(0);
+      const radius = calculateSphereSize();
+      const connectionThreshold = radius * 0.32; // 구체 크기에 비례하여 연결 거리 조정
       
       for (let i = 0; i < nodeCount; i++) {
         for (let j = i + 1; j < nodeCount; j++) {
@@ -81,7 +97,7 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
             nodePositions[i * 3 + 2] - nodePositions[j * 3 + 2]
           );
 
-          if (distance < 32) {
+          if (distance < connectionThreshold) {
             connectionCounts[i]++;
             connectionCounts[j]++;
           }
@@ -136,11 +152,12 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
       // 노드 디자인 설정
       const material = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 3,
+        size: 4,
         sizeAttenuation: true,
         map: createNodeTexture(),
         blending: THREE.AdditiveBlending,
         depthWrite: false,
+        depthTest: false // 깊이 테스트 비활성화
       });
 
       const nodes = new THREE.Points(geometry, material);
@@ -158,9 +175,12 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
         transparent: true,
         opacity: 0.3,
         linewidth: 1,
-        depthWrite: true,
+        depthWrite: false,
         depthTest: false
       });
+
+      const radius = calculateSphereSize();
+      const connectionThreshold = radius * 0.32;
 
       for (let i = 0; i < nodeCount; i++) {
         for (let j = i + 1; j < nodeCount; j++) {
@@ -170,7 +190,7 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
             nodePositions[i * 3 + 2] - nodePositions[j * 3 + 2]
           );
 
-          if (distance < 32) {
+          if (distance < connectionThreshold) {
             const geometry = new THREE.BufferGeometry();
             const vertices = new Float32Array([
               nodePositions[i * 3], nodePositions[i * 3 + 1], nodePositions[i * 3 + 2],
@@ -191,7 +211,8 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
     const connections = createConnections();
 
     // 카메라 초기 위치 설정
-    camera.position.z = 300;
+    const radius = calculateSphereSize();
+    camera.position.z = radius * 3; // 구체 크기에 비례하여 카메라 거리 설정
 
     // 애니메이션 
     let time = 0;
@@ -208,8 +229,9 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
       });
 
       // 카메라 움직임
-      camera.position.x = Math.sin(time * 0.5) * 60;
-      camera.position.y = Math.cos(time * 0.5) * 60;
+      const radius = calculateSphereSize();
+      camera.position.x = Math.sin(time * 0.5) * (radius * 0.6);
+      camera.position.y = Math.cos(time * 0.5) * (radius * 0.6);
       camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
@@ -217,9 +239,17 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
 
     // 윈도우 리사이즈 핸들러
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(width, height);
+
+      // 구체 크기 재조정
+      const newRadius = calculateSphereSize();
+      earth.scale.setScalar(newRadius / earth.geometry.parameters.radius);
+      camera.position.z = newRadius * 3;
     };
 
     window.addEventListener('resize', handleResize);
@@ -230,13 +260,15 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
       const maxScroll = document.body.scrollHeight - window.innerHeight;
       const scrollFraction = scrollY / maxScroll;
 
-      const minZ = 50; // 하한선 (가장 가까운 거리)
-      const maxZ = 300; // 상한선 (가장 먼 거리)
+      const radius = calculateSphereSize();
+      const minZ = radius * 0.5; // 하한선 (가장 가까운 거리)
+      const maxZ = radius * 3; // 상한선 (가장 먼 거리)
 
       // 카메라 위치 조정
       camera.position.z = maxZ - scrollFraction * (maxZ - minZ);
-      camera.position.z = Math.max(minZ, Math.min(camera.position.z, maxZ)); // 스크롤에 따라 카메라가 구체 내부로 이동
+      camera.position.z = Math.max(minZ, Math.min(camera.position.z, maxZ));
 
+      camera.lookAt(earth.position);
       // 구체 확대 애니메이션
       earth.scale.set(1 + scrollFraction, 1 + scrollFraction, 1 + scrollFraction);
     };
@@ -253,6 +285,9 @@ const RotatingNetwork: React.FC<RotatingNetwork> = () => {
         mount.removeChild(renderer.domElement);
       }
       scene.clear();
+      renderer.dispose();
+      // 추가적으로 geometry와 material도 dispose 필요
+      // 예: geometry.dispose(), material.dispose()
     };
   }, []);
 
