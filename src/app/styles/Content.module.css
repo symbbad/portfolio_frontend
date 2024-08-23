@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 15px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0 auto; /* 완전 중앙 배치 */
+    max-width: 800px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+  }
+
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.3), 
+    0 0 30px rgba(255, 255, 255, 0.2);
+color: #ffffff;
+font-weight: bold;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #ffffffe0;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+    font-size: 1.2rem;
+  }
+  
+  .listItem {
+    margin-bottom: 0.5rem;
+    color: #ffffffe0;
+    
+  }
+  
+  .link {
+    color: #ffffff98;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  .listTitle {
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.8),
+                 0 0 20px rgba(76, 175, 80, 0.6), 
+                 0 0 30px rgba(76, 175, 80, 0.4),
+                 0 0 40px rgba(76, 175, 80, 0.3);
+    color: #6bdb6f;
+    font-weight: bold;
+  }
+
+  .listTitleNormal {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.3), 
+    0 0 30px rgba(255, 255, 255, 0.2);
+color: #ffffff;
+font-weight: bold;
+  }

@@ -3,10 +3,13 @@
 /* 전체 배경 */
 #main-container {
   height: 100vh;
-  overflow: hidden;
-  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black; /* 구체 화면의 배경 */
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 body {
@@ -19,30 +22,14 @@ body {
 
 
 #content {
-  height: 50vh;
-  overflow: hidden;
-  position: relative; /* 배경과의 레이어 분리 */
-  z-index: 2; /* 구체보다 위에 표시 */
-  background-color: rgba(255, 255, 255, 0); /* 반투명 흰색 배경 */
-  backdrop-filter: blur(10px);
-  padding: 40px;
-  border-radius: 15px; /* 모서리를 둥글게 */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
   font-family: Arial, sans-serif;
-  color: #333;
-  margin: 20px auto; /* 화면 중앙 정렬 */
-  max-width: 800px; /* 콘텐츠 최대 너비 제한 */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 살짝 음영 추가 */
-}
-
-#content h2 {
-  margin-top: 50px;
-  font-size: 2rem;
-  text-align: center;
-}
-
-#content p {
-  line-height: 1.6;
-  margin-bottom: 20px;
+  margin: 0 auto; /* 완전 중앙 배치 */
 }
 
 button {
