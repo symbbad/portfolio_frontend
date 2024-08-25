@@ -3,11 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-// 추상화: 그렇게 필요해 보이지는 않음
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface RotatingNetwork {}
-
-const RotatingNetwork: React.FC<RotatingNetwork> = () => {
+const RotatingNetwork: React.FC = () => {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
