@@ -7,12 +7,13 @@ const Content: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Symbbad</h1>
+      <div className={styles.divider} />
       <p className={styles.description}>
-        모든 것을 즐겁게 배우며 성장하는 <span style={{ color: "#6bdb6f", fontWeight: "900" }}>기술자</span>가 되고 싶습니다.
+        네트워크와 인프라의 모든 것을 즐겁게 배우며 <br></br>성장하는 <span style={{ fontWeight: "900" }}>기술자</span>가 되길 원합니다
       </p>
       <ul className={styles.list}>
         <li className={styles.listItem}>
-          <strong className={styles.listTitle}>Portfolio & Blog:</strong>{" "}
+          <strong className={styles.listTitle}>Portfolio:</strong>{" "}
           <a
             href="https://blog.symbbad.com"
             className={styles.link}
