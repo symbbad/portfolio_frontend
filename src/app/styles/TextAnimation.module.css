@@ -18,7 +18,7 @@
 .word {
   position: absolute;
   white-space: nowrap;
-  font-size: 5rem;
+  font-size: clamp(2rem, 8vw, 5rem);
   font-weight: bold;
   color: #ffffff;
   opacity: 0;

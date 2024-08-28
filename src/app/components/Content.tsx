@@ -7,10 +7,10 @@ const Content: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Symbbad</h1>
-      <div className={styles.divider} />
       <p className={styles.description}>
-        네트워크와 인프라의 모든 것을 즐겁게 배우며 <br></br>성장하는 <span style={{ fontWeight: "900" }}>기술자</span>가 되길 원합니다
+        네트워크와 인프라 분야에서 끊임없이 탐구하고 가치를 창출하는, <span style={{ fontWeight: "900", color: "#6bdb6f", textShadow: "0 0 10px rgba(76, 175, 80, 0.8), 0 0 20px rgba(76, 175, 80, 0.6)" }}>기술 전문가</span>가 되고자 합니다
       </p>
+      <div className={styles.divider} />
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <strong className={styles.listTitle}>Portfolio:</strong>{" "}

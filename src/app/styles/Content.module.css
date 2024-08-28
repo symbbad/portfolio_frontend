@@ -5,7 +5,7 @@
   justify-content: center;
   background-color: rgba(255, 255, 255, 0);
   backdrop-filter: blur(20px);
-  padding: 50px;
+  padding: clamp(20px, 5vw, 50px);
   font-family: 'Noto Sans KR', 'Pretendard', 'Nanum Gothic', sans-serif;
   margin: 0 auto;
   max-width: 800px;
@@ -42,7 +42,7 @@
 }
 
 .title {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   margin-bottom: 1rem;
   color: #ffffff;
   font-weight: bold;
@@ -62,17 +62,17 @@
 }
 
 .description {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   margin-bottom: 1.5rem;
   color: #ffffffe0;
   text-align: center;
+  max-width: 800px;
 }
-
 
 .list {
   list-style: none;
   padding: 0;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
 .listItem {
@@ -83,6 +83,7 @@
 .link {
   color: #ffffff98;
   text-decoration: none;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
 .link:hover {
@@ -96,6 +97,7 @@
                0 0 40px rgba(76, 175, 80, 0.3);
   color: #6bdb6f;
   font-weight: bold;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
 .listTitleNormal {
@@ -104,4 +106,5 @@
                0 0 30px rgba(255, 255, 255, 0.2);
   color: #ffffff;
   font-weight: bold;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
