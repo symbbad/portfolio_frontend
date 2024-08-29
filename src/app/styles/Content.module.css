@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 255, 255, 0);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   padding: clamp(20px, 5vw, 50px);
   font-family: 'Noto Sans KR', 'Pretendard', 'Nanum Gothic', sans-serif;
   margin: 0 auto;
