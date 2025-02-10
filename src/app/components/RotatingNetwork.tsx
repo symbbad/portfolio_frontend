@@ -119,11 +119,10 @@ const RotatingNetwork: React.FC = () => {
 
       // 배경 투명
       context.clearRect(0, 0, canvas.width, canvas.height);
-
       // 테두리
       context.beginPath();
       context.arc(64, 64, 24, 0, Math.PI * 2); // 약간 작은 반지름으로 테두리
-      context.strokeStyle = 'rgba(147, 112, 219, 0.8)'; // 몽환적인 보라색 테두리
+      context.strokeStyle = 'rgba(76, 175, 80, 0.8)'; // 몽환적인 보라색 테두리
       context.lineWidth = 4; // 테두리 두께
       context.stroke();
 
