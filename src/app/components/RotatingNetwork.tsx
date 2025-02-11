@@ -128,7 +128,7 @@ const RotatingNetwork: React.FC = () => {
 
       const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
       gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      gradient.addColorStop(0.5, 'rgba(147, 112, 219, 0.8)');
+      gradient.addColorStop(0.5, 'rgba(76, 175, 80, 0.8)');
       gradient.addColorStop(1, 'rgba(147, 112, 219, 0)');
       
       context.fillStyle = gradient;
