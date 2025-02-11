@@ -6,7 +6,7 @@ import styles from "../styles/Content.module.css";
 const Content: React.FC = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title>Simhyunjun</div></h1>
+      <h1 className={styles.title}>Simhyunjun</div></h1>
       <p className={styles.description}>
         네트워크, 인프라 분야에서 끊임없이 탐구하고 가치를 창출하는,<br></br> <span style={{ fontWeight: "900", color: "#6bdb6f"}}>기술 전문가</span>를 목표합니다다
       </p>
