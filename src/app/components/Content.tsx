@@ -6,7 +6,7 @@ import styles from "../styles/Content.module.css";
 const Content: React.FC = () => {
   return (
     <div className={styles.container}>
-      <h1 style={{ fontWeight: "bold", color: "#6bdb6f" }}>Sim <span style={{ color: "#aaa", fontStyle: "italic", fontWeight: 600 }}>· Hyunjun</span>
+      <h1 style={{ fontWeight: "bold", color: "#000" }}>Sim <span style={{ color: "#000", fontStyle: "italic", fontWeight: 600 }}>· Hyunjun</span>
 </h1>
       <p className={styles.description}>
         네트워크, 인프라 분야에서 끊임없이 탐구하고 <br></br>가치를 창출하는 <span style={{ fontWeight: "900"}}>기술 전문가</span>를 목표합니다
